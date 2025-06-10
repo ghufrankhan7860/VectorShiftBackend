@@ -5,8 +5,23 @@ from typing import List, Tuple
 from pydantic import BaseModel
 from pydantic import BaseModel, UUID4
 from typing import List, Tuple
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+    "https://your-frontend-domain.com"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,            # Allow specific origins (use ["*"] for all)
+    allow_credentials=True,
+    allow_methods=["*"],              # Allow all HTTP methods
+    allow_headers=["*"],              # Allow all headers
+)
 
 @app.get('/')
 def read_root():
